@@ -10,84 +10,39 @@ namespace PlutoRoverController
     {
         private IMover CurrentMover;
 
-        private IMover NMover;
-        private IMover SMover;
-        private IMover WMover;
-        private IMover EMover;
-
         public Position Position { get; set; }
         public Direction Direction { get; set; }
+
+        public Dictionary<Direction, IMover> Movers = new Dictionary<Direction, IMover>();
 
         public PlutoRover()
         {
             this.Position = new Position() { X = 0, Y = 0 };
             this.Direction = Direction.N;
 
-            NMover = new NMover(this.Position);
-            SMover = new SMover(this.Position);
-            EMover = new EMover(this.Position);
-            WMover = new WMover(this.Position);
+            Movers.Add(Direction.N, new NMover(this.Position));
+            Movers.Add(Direction.S, new SMover(this.Position));
+            Movers.Add(Direction.E, new EMover(this.Position));
+            Movers.Add(Direction.W, new WMover(this.Position));
 
             SetMover();
         }
 
         void SetMover()
         {
-            switch (this.Direction)
-            {
-                case Direction.N:
-                    CurrentMover = NMover;
-                    break;
-                case Direction.S:
-                    CurrentMover = SMover;
-                    break;
-                case Direction.W:
-                    CurrentMover = WMover;
-                    break;
-                case Direction.E:
-                    CurrentMover = EMover;
-                    break;
-            }
+            CurrentMover = Movers[this.Direction];
         }
 
         void TurnLeft()
         {
-            switch (this.Direction)
-            {
-                case Direction.N:
-                    this.Direction = Direction.W;
-                    break;
-                case Direction.S:
-                    this.Direction = Direction.E;
-                    break;
-                case Direction.W:
-                    this.Direction = Direction.S;
-                    break;
-                case Direction.E:
-                    this.Direction = Direction.N;
-                    break;
-            }
+            this.Direction = CurrentMover.TurnLeft();
 
             SetMover();
         }
 
         void TurnRight()
         {
-            switch (this.Direction)
-            {
-                case Direction.N:
-                    this.Direction = Direction.E;
-                    break;
-                case Direction.S:
-                    this.Direction = Direction.W;
-                    break;
-                case Direction.W:
-                    this.Direction = Direction.N;
-                    break;
-                case Direction.E:
-                    this.Direction = Direction.S;
-                    break;
-            }
+            this.Direction = CurrentMover.TurnRight();
 
             SetMover();
         }

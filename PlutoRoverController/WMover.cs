@@ -19,5 +19,15 @@ namespace PlutoRoverController
         {
             this.Position.Y++;
         }
+
+        public override Direction TurnLeft()
+        {
+            return Direction.S;
+        }
+
+        public override Direction TurnRight()
+        {
+            return Direction.N;
+        }
     }
 }

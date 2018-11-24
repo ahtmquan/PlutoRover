@@ -4,5 +4,7 @@
     {
         void MoveBack();
         void MoveFoward();
+        Direction TurnLeft();
+        Direction TurnRight();
     }
 }

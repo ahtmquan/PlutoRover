@@ -24,5 +24,13 @@ namespace PlutoRoverController
         {
 
         }
+
+        public virtual Direction TurnLeft() {
+            throw new Exception();
+        }
+
+        public virtual Direction TurnRight(){
+            throw new Exception();
+        }
     }
 }
